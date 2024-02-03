@@ -1,4 +1,4 @@
-package com.example.muko2
+package com.example.kotlinmusic
 
 import org.junit.Test
 
