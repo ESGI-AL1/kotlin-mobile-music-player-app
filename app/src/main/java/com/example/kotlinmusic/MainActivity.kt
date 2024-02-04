@@ -1,37 +1,35 @@
 package com.example.kotlinmusic
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinmusic.R
-import com.example.kotlinmusic.network.ApiInterface
-import com.example.kotlinmusic.ui.adapters.MusicAdapter
-import org.koin.android.ext.android.inject
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.example.kotlinmusic.ui.fragments.FavoritesFragment
+import com.example.kotlinmusic.ui.fragments.HomeFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-
-    private val apiInterface: ApiInterface by inject()
-
-    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        apiInterface.getData("eminem")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ musicResponse ->
-                val adapter = MusicAdapter(this, musicResponse.data)
-                recyclerView.adapter = adapter
-            }, { error ->
-                Log.e("MainActivity", "Error: ${error.message}")
-            })
 
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            var fragment: Fragment? = null
+            when (item.itemId) {
+                R.id.navigation_home -> fragment = HomeFragment()
+                R.id.navigation_favorites -> fragment = FavoritesFragment()
+            }
+            fragment?.let { switchFragment(it) }
+            true
+        }
+        if (savedInstanceState == null) {
+            bottomNavigationView.selectedItemId = R.id.navigation_home
+        }
+    }
+
+    private fun switchFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment, fragment)
+            .commit()
     }
 }

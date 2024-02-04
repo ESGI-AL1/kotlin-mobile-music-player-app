@@ -1,6 +1,6 @@
 package com.example.kotlinmusic.ui.adapters
 
-import android.app.Activity
+import android.content.Context
 import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.View
@@ -14,33 +14,25 @@ import com.example.kotlinmusic.data.entities.Data
 import com.example.kotlinmusic.R
 import com.squareup.picasso.Picasso
 
-class MusicAdapter(private val context: Activity, private val data: List<Data>):
+class MusicAdapter(private val context: Context, private val data: List<Data>) :
     RecyclerView.Adapter<MusicAdapter.MusicItemViewHolder>() {
 
-    class MusicItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var albumCover: ImageView
-        val musicTitle: TextView
-        val playButton: ImageButton
-        val pauseButton: ImageButton
-
-        init {
-            albumCover=itemView.findViewById(R.id.albumCover)
-            musicTitle=itemView.findViewById(R.id.musicTitle)
-            playButton=itemView.findViewById(R.id.btnPlay)
-            pauseButton=itemView.findViewById(R.id.btnPause)
-        }
+    class MusicItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var albumCover: ImageView = itemView.findViewById(R.id.albumCover)
+        val musicTitle: TextView = itemView.findViewById(R.id.musicTitle)
+        val playButton: ImageButton = itemView.findViewById(R.id.btnPlay)
+        val pauseButton: ImageButton = itemView.findViewById(R.id.btnPause)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicItemViewHolder {
         val itemView = LayoutInflater.from(context).inflate(
             R.layout.music_item, parent,
-            false)
+            false
+        )
         return MusicItemViewHolder(itemView)
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
+    override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: MusicItemViewHolder, position: Int) {
         val currentData = data[position]
@@ -55,7 +47,7 @@ class MusicAdapter(private val context: Activity, private val data: List<Data>):
 
         holder.pauseButton.setOnClickListener {
             mediaPlayer.stop()
+            mediaPlayer.release() // Add this to release resources
         }
     }
-
 }
