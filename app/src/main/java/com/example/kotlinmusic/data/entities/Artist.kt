@@ -1,4 +1,4 @@
-package com.example.kotlinmusic
+package com.example.kotlinmusic.data.entities
 
 data class Artist(
     val id: Int,

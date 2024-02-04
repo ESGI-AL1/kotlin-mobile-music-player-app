@@ -1,4 +1,4 @@
-package com.example.kotlinmusic
+package com.example.kotlinmusic.ui.adapters
 
 import android.app.Activity
 import android.media.MediaPlayer
@@ -10,6 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlinmusic.data.entities.Data
+import com.example.kotlinmusic.R
 import com.squareup.picasso.Picasso
 
 class MusicAdapter(private val context: Activity, private val data: List<Data>):
@@ -30,7 +32,8 @@ class MusicAdapter(private val context: Activity, private val data: List<Data>):
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicItemViewHolder {
-        val itemView = LayoutInflater.from(context).inflate(R.layout.music_item, parent,
+        val itemView = LayoutInflater.from(context).inflate(
+            R.layout.music_item, parent,
             false)
         return MusicItemViewHolder(itemView)
     }

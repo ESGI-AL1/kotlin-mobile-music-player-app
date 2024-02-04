@@ -1,5 +1,7 @@
-package com.example.kotlinmusic
+package com.example.kotlinmusic.network
 
+import com.example.kotlinmusic.util.Constants
+import com.example.kotlinmusic.data.entities.MusicData
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers

@@ -1,5 +1,6 @@
-package com.example.kotlinmusic
+package com.example.kotlinmusic.network
 
+import com.example.kotlinmusic.util.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

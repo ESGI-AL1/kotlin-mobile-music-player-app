@@ -1,4 +1,4 @@
-package com.example.kotlinmusic
+package com.example.kotlinmusic.util
 
 object Constants {
     const val BASE_URL = "https://deezerdevs-deezer.p.rapidapi.com/"
