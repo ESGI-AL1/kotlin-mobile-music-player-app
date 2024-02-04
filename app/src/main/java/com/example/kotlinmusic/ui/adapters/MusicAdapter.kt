@@ -14,7 +14,8 @@ import com.example.kotlinmusic.data.entities.Data
 import com.example.kotlinmusic.R
 import com.squareup.picasso.Picasso
 
-class MusicAdapter(private val context: Context, private val data: List<Data>) :
+class MusicAdapter(private val context: Context,
+                   private val data: List<Data>) :
     RecyclerView.Adapter<MusicAdapter.MusicItemViewHolder>() {
 
     class MusicItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -1,8 +1,5 @@
 package com.example.kotlinmusic.data.entities
 
-import com.example.kotlinmusic.data.entities.Album
-import com.example.kotlinmusic.data.entities.Artist
-
 data class Data(
     val album: Album,
     val artist: Artist,

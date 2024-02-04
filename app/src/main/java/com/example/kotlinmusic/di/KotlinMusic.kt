@@ -30,7 +30,10 @@ class KotlinMusic : Application() {
                 .fallbackToDestructiveMigration()
                 .build()
         }
-        single { get<AppDatabase>().favoriteTrackDao() }
+
+        single {
+            get<AppDatabase>().favoriteTrackDao()
+        }
     }
 
 
