@@ -1,6 +1,5 @@
 package com.example.kotlinmusic.ui.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -35,11 +34,6 @@ class TracksAdapter(
 
     override fun getItemCount() = data.size
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newData: List<FavoriteTrack>) {
-        data = newData
-        notifyDataSetChanged()
-    }
 
     class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val title: TextView = itemView.findViewById(R.id.musicTitle)

@@ -6,15 +6,18 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.kotlinmusic.data.entities.FavoriteTrack
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteTrackDAO {
-    @Query("SELECT * FROM favoriteTracks")
-    fun getAllFavorites(): List<FavoriteTrack>
+    @Query("SELECT * FROM favoritetrack")
+    fun getAllFavorites(): Flow<List<FavoriteTrack>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg musicItems: FavoriteTrack)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(vararg favoriteTrack: FavoriteTrack)
 
     @Delete
-    fun delete(musicItem: FavoriteTrack)
+    fun delete(favoriteTrack: FavoriteTrack)
+    @Query("SELECT EXISTS(SELECT 1 FROM favoritetrack WHERE uid = :uid LIMIT 1)")
+    suspend fun isAlreadyInFavorite(uid: Long): Boolean
 }

@@ -14,22 +14,23 @@ import com.example.kotlinmusic.data.entities.Data
 import com.example.kotlinmusic.R
 import com.squareup.picasso.Picasso
 
-class MusicAdapter(private val context: Context,
-                   private val data: List<Data>) :
-    RecyclerView.Adapter<MusicAdapter.MusicItemViewHolder>() {
+
+class MusicAdapter(
+    private val context: Context,
+    private val data: List<Data>,
+    private val onFavoriteClicked: (Data) -> Unit
+) : RecyclerView.Adapter<MusicAdapter.MusicItemViewHolder>() {
 
     class MusicItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var albumCover: ImageView = itemView.findViewById(R.id.albumCover)
         val musicTitle: TextView = itemView.findViewById(R.id.musicTitle)
         val playButton: ImageButton = itemView.findViewById(R.id.btnPlay)
         val pauseButton: ImageButton = itemView.findViewById(R.id.btnPause)
+        val favButton: ImageButton = itemView.findViewById(R.id.btnFavorite)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicItemViewHolder {
-        val itemView = LayoutInflater.from(context).inflate(
-            R.layout.music_item, parent,
-            false
-        )
+        val itemView = LayoutInflater.from(context).inflate(R.layout.music_item, parent, false)
         return MusicItemViewHolder(itemView)
     }
 
@@ -48,7 +49,12 @@ class MusicAdapter(private val context: Context,
 
         holder.pauseButton.setOnClickListener {
             mediaPlayer.stop()
-            mediaPlayer.release() // Add this to release resources
+            mediaPlayer.release()
+        }
+
+        holder.favButton.setOnClickListener {
+            onFavoriteClicked(currentData)
         }
     }
 }
+
