@@ -37,12 +37,10 @@ class TracksAdapter(
 
     class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val title: TextView = itemView.findViewById(R.id.musicTitle)
-        private val artist: TextView = itemView.findViewById(R.id.artistName)
         private val cover: ImageView = itemView.findViewById(R.id.albumCover)
 
         fun bind(track: FavoriteTrack) {
             title.text = track.title
-            artist.text = track.artist
             Picasso.get().load(track.coverUrl).into(cover)
         }
     }
