@@ -31,7 +31,7 @@ class MusicSearchViewModel(private val apiInterface: ApiInterface, private val f
         }
     }
 
-    fun addToFavorites(data: Data) {
+    fun addToFavorites(data: Data, onAdded: (Data) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val favoriteTrack = FavoriteTrack(
                 uid = data.id,
@@ -40,6 +40,7 @@ class MusicSearchViewModel(private val apiInterface: ApiInterface, private val f
                 coverUrl = data.album.cover
             )
             favoriteTrackRepository.insertFavoriteTrack(favoriteTrack)
+            onAdded(data)
         }
     }
 }

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinmusic.databinding.HomeFragmentBinding
 import com.example.kotlinmusic.ui.adapters.MusicAdapter
 import com.example.kotlinmusic.ui.viewmodels.MusicSearchViewModel
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
@@ -18,7 +19,8 @@ class HomeFragment : Fragment() {
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
         setupSearchView()
         observeViewModel()
@@ -35,6 +37,7 @@ class HomeFragment : Fragment() {
                 }
                 return true
             }
+
             override fun onQueryTextChange(newText: String?): Boolean = true
         })
     }
@@ -44,9 +47,15 @@ class HomeFragment : Fragment() {
             if (musicData.isNotEmpty()) {
                 stopShimmerEffect()
                 binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                binding.recyclerView.adapter = MusicAdapter(
-                    requireContext(), musicData
-                ) { dataItem -> viewModel.addToFavorites(dataItem) }
+                binding.recyclerView.adapter = MusicAdapter(requireContext(), musicData)
+                { dataItem ->
+                    viewModel.addToFavorites(dataItem) {
+                        activity?.runOnUiThread {
+                            Snackbar.make(binding.root,
+                                "${it.title} added to favorites", Snackbar.LENGTH_SHORT).show()
+                        }
+                    }
+                }
                 binding.recyclerView.visibility = View.VISIBLE
             } else {
                 startShimmerEffect()
@@ -71,4 +80,3 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
-

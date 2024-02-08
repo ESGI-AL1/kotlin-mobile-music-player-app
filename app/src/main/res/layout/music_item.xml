@@ -4,35 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
     android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dp"
     app:cardElevation="4dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        android:layout_margin="8dp">
+        app:cardElevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="165dp"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:padding="10dp">
 
             <ImageView
                 android:id="@+id/albumCover"
-                android:layout_width="129dp"
-                android:layout_height="135dp"
+                android:layout_width="120dp"
+                android:layout_height="119dp"
                 android:contentDescription="@string/albumCover"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_foreground" />
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="109dp"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
@@ -57,31 +57,33 @@
 
                     <ImageButton
                         android:id="@+id/btnPlay"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@color/off_white"
+                        android:layout_width="68dp"
+                        android:layout_height="68dp"
+                        android:background="#FFFFFF"
                         android:contentDescription="@string/playButton"
-                        app:srcCompat="@android:drawable/ic_media_play" />
+                        app:srcCompat="@drawable/play_arrow_24px"
+                        tools:srcCompat="@drawable/play_arrow_24px" />
 
                     <ImageButton
                         android:id="@+id/btnPause"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="68dp"
+                        android:layout_height="68dp"
                         android:layout_marginStart="8dp"
-                        android:background="@color/off_white"
+                        android:background="@color/white"
                         android:contentDescription="@string/pauseButton"
-                        app:srcCompat="@android:drawable/ic_media_pause" />
+                        app:srcCompat="@drawable/stop_24px"
+                        tools:srcCompat="@drawable/stop_24px" />
 
                     <ImageButton
                         android:id="@+id/btnFavorite"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="68dp"
+                        android:layout_height="68dp"
                         android:layout_marginStart="8dp"
                         android:background="@color/off_white"
                         android:backgroundTint="#FFFFFF"
                         android:contentDescription="@string/addToFavorite"
-                        app:srcCompat="@drawable/ic_launcher_foreground"
-                        tools:srcCompat="@android:drawable/btn_star" />
+                        app:srcCompat="@drawable/star_24px"
+                        tools:srcCompat="@drawable/star_24px" />
                 </LinearLayout>
 
             </LinearLayout>
