@@ -1,5 +1,6 @@
 package com.example.kotlinmusic.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +25,6 @@ class HomeFragment : Fragment() {
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
         setupSearchView()
         observeViewModel()
-        startShimmerEffect()
         return binding.root
     }
 
@@ -38,14 +38,23 @@ class HomeFragment : Fragment() {
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean = true
+            override fun onQueryTextChange(newText: String?): Boolean = false
         })
     }
 
+
+    @SuppressLint("SetTextI18n")
     private fun observeViewModel() {
         viewModel.musicData.observe(viewLifecycleOwner) { musicData ->
-            if (musicData.isNotEmpty()) {
+            if (musicData == null) {
+                binding.shimmerViewContainer.visibility = View.GONE
+                binding.tvEmptyMessage.visibility = View.VISIBLE
+                binding.recyclerView.visibility = View.GONE
+                binding.tvEmptyMessage.text = "Use the search bar to lookup for an artist discography!"
+            } else if (musicData.isNotEmpty()) {
                 stopShimmerEffect()
+                binding.recyclerView.visibility = View.VISIBLE
+                binding.tvEmptyMessage.visibility = View.GONE
                 binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
                 binding.recyclerView.adapter = MusicAdapter(requireContext(), musicData)
                 { dataItem ->
@@ -56,12 +65,18 @@ class HomeFragment : Fragment() {
                         }
                     }
                 }
-                binding.recyclerView.visibility = View.VISIBLE
             } else {
-                startShimmerEffect()
+                stopShimmerEffect()
+                binding.recyclerView.visibility = View.GONE
+                binding.tvEmptyMessage.visibility = View.VISIBLE
+                binding.tvEmptyMessage.text = "No results found. Try a different search."
             }
         }
     }
+
+
+
+
 
     private fun startShimmerEffect() {
         binding.shimmerViewContainer.startShimmer()

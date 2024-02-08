@@ -13,20 +13,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MusicSearchViewModel(private val apiInterface: ApiInterface, private val favoriteTrackRepository: IFavoriteTrackRepository) : ViewModel() {
-    private val _musicData = MutableLiveData<List<Data>>()
-    val musicData: LiveData<List<Data>> = _musicData
+    private val _musicData = MutableLiveData<List<Data>?>(null)
+    val musicData: LiveData<List<Data>?> = _musicData
 
-    init {
-        fetchMusicData("eminem")
-    }
 
     fun fetchMusicData(query: String) {
+        _musicData.postValue(null)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = apiInterface.getData(query)
                 _musicData.postValue(response.data)
             } catch (e: Exception) {
                 Log.e("Artist Search", "Error: ", e)
+                _musicData.postValue(emptyList())
             }
         }
     }

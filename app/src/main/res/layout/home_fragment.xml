@@ -12,6 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"/>
 
+    <TextView
+        android:id="@+id/tvEmptyMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/use_the_search_bar_to_lookup_for_an_artist_discography"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"/>
+
+
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
         android:layout_width="match_parent"
