@@ -1,6 +1,6 @@
 # Kotlin Music
 
-Simple kotlin application to search and play music for an artist using the Deezer API through Rapid API.
+Simple Android application made with Kotlin to search and play music for an artist using the Deezer API through Rapid API.
 
 ## Requirements
 
