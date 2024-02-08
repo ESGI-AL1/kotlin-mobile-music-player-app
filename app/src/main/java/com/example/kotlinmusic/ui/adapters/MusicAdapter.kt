@@ -14,6 +14,11 @@ import com.example.kotlinmusic.data.entities.Data
 import com.example.kotlinmusic.R
 import com.squareup.picasso.Picasso
 
+/*
+Music adapter is to access data items from the HomeView
+Here, we define behaviors that can happen in the view, such as playing music
+or adding a track to the favorites section of the application
+*/
 
 class MusicAdapter(
     private val context: Context,

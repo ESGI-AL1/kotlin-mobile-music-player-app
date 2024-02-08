@@ -8,6 +8,9 @@ import androidx.room.Query
 import com.example.kotlinmusic.data.entities.FavoriteTrack
 import kotlinx.coroutines.flow.Flow
 
+/*
+Interface to define the available methods to interact with RoomDB
+ */
 @Dao
 interface FavoriteTrackDAO {
     @Query("SELECT * FROM favoritetrack")

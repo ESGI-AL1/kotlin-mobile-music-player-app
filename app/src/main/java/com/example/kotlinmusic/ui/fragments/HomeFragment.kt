@@ -13,7 +13,9 @@ import com.example.kotlinmusic.ui.adapters.MusicAdapter
 import com.example.kotlinmusic.ui.viewmodels.MusicSearchViewModel
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
+/*
+HomeFragment is responsible for displaying music search results from the API calls.
+*/
 class HomeFragment : Fragment() {
 
     private val viewModel: MusicSearchViewModel by viewModel()
@@ -42,7 +44,11 @@ class HomeFragment : Fragment() {
         })
     }
 
-
+    /*
+    There basically should be a shimmering effect replacing the music item when its loading
+    But due to lack of time during the development phase, it hasn't been correctly implemented.
+    Refer to functions line 83 and 89 of this file
+     */
     @SuppressLint("SetTextI18n")
     private fun observeViewModel() {
         viewModel.musicData.observe(viewLifecycleOwner) { musicData ->
@@ -73,10 +79,6 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
-
-
-
 
     private fun startShimmerEffect() {
         binding.shimmerViewContainer.startShimmer()

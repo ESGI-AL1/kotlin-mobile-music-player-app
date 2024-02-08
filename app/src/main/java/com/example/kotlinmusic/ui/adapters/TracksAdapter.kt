@@ -12,6 +12,9 @@ import com.example.kotlinmusic.R
 import com.example.kotlinmusic.data.entities.FavoriteTrack
 import com.squareup.picasso.Picasso
 
+/*
+Music adapter is to handle interactions with the FavoriteTrackViewModel
+*/
 class TracksAdapter(
     private val context: Context,
     private var data: List<FavoriteTrack>,

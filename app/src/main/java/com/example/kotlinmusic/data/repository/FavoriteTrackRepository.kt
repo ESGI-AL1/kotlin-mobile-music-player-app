@@ -4,7 +4,9 @@ import android.util.Log
 import com.example.kotlinmusic.data.dao.FavoriteTrackDAO
 import com.example.kotlinmusic.data.entities.FavoriteTrack
 import kotlinx.coroutines.flow.Flow
-
+/*
+Repository to call methods from the DAO to manipulate data in UI
+ */
 class FavoriteTrackRepository(private val favoriteTrackDAO: FavoriteTrackDAO) : IFavoriteTrackRepository {
     override fun getAllFavorites(): Flow<List<FavoriteTrack>> = favoriteTrackDAO.getAllFavorites()
 

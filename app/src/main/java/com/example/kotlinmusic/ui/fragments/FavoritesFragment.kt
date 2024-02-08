@@ -11,6 +11,9 @@ import com.example.kotlinmusic.ui.adapters.TracksAdapter
 import com.example.kotlinmusic.ui.viewmodels.FavoritesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/*
+FavoritesFragment is responsible for displaying favorite tracks coming from the RoomDB
+*/
 class FavoritesFragment : Fragment() {
 
     private val viewModel: FavoritesViewModel by viewModel()

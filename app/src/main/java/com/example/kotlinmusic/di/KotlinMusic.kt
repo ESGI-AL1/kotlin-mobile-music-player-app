@@ -16,7 +16,10 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+/*
+Using Koin for dependency injections
+All dependencies for the application are injected here, this is a global DI container
+ */
 class KotlinMusic : Application() {
 
     private val appModule = module {

@@ -11,7 +11,10 @@ import com.example.kotlinmusic.data.repository.IFavoriteTrackRepository
 import com.example.kotlinmusic.network.ApiInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
+/*
+MusicSearchViewModel is responsible for handling music search functionality
+It is managing data related to music search results from the API calls
+*/
 class MusicSearchViewModel(private val apiInterface: ApiInterface, private val favoriteTrackRepository: IFavoriteTrackRepository) : ViewModel() {
     private val _musicData = MutableLiveData<List<Data>?>(null)
     val musicData: LiveData<List<Data>?> = _musicData
