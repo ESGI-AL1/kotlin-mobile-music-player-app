@@ -1,6 +1,5 @@
 package com.example.kotlinmusic.ui.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +12,9 @@ import com.example.kotlinmusic.R
 import com.example.kotlinmusic.data.entities.FavoriteTrack
 import com.squareup.picasso.Picasso
 
+/*
+Music adapter is to handle interactions with the FavoriteTrackViewModel
+*/
 class TracksAdapter(
     private val context: Context,
     private var data: List<FavoriteTrack>,
@@ -35,20 +37,13 @@ class TracksAdapter(
 
     override fun getItemCount() = data.size
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newData: List<FavoriteTrack>) {
-        data = newData
-        notifyDataSetChanged()
-    }
 
     class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val title: TextView = itemView.findViewById(R.id.musicTitle)
-        private val artist: TextView = itemView.findViewById(R.id.artistName)
         private val cover: ImageView = itemView.findViewById(R.id.albumCover)
 
         fun bind(track: FavoriteTrack) {
             title.text = track.title
-            artist.text = track.artist
             Picasso.get().load(track.coverUrl).into(cover)
         }
     }

@@ -8,84 +8,92 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinmusic.R
-import com.example.kotlinmusic.network.ApiInterface
+import com.example.kotlinmusic.databinding.HomeFragmentBinding
 import com.example.kotlinmusic.ui.adapters.MusicAdapter
-import com.facebook.shimmer.ShimmerFrameLayout
-import org.koin.android.ext.android.inject
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
-
+import com.example.kotlinmusic.ui.viewmodels.MusicSearchViewModel
+import com.google.android.material.snackbar.Snackbar
+import org.koin.androidx.viewmodel.ext.android.viewModel
+/*
+HomeFragment is responsible for displaying music search results from the API calls.
+*/
 class HomeFragment : Fragment() {
 
-    private val apiInterface: ApiInterface by inject()
-    private lateinit var shimmerViewContainer: ShimmerFrameLayout
-    private lateinit var recyclerView: RecyclerView
+    private val viewModel: MusicSearchViewModel by viewModel()
+    private var _binding: HomeFragmentBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.home_fragment, container, false)
-        shimmerViewContainer = view.findViewById(R.id.shimmer_view_container)
-        recyclerView = view.findViewById(R.id.recyclerView)
-
-        val searchView: SearchView = view.findViewById(R.id.searchView)
-        setupSearchView(searchView)
-        fetchMusicData("eminem")
-
-        return view
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+        _binding = HomeFragmentBinding.inflate(inflater, container, false)
+        setupSearchView()
+        observeViewModel()
+        return binding.root
     }
 
-    private fun setupSearchView(searchView: SearchView) {
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+    private fun setupSearchView() {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.trim()?.let {
-                    if (it.isNotEmpty()) {
-                        fetchMusicData(it)
-                    }
+                query?.let {
+                    viewModel.fetchMusicData(it)
+                    startShimmerEffect()
                 }
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return true
-            }
+            override fun onQueryTextChange(newText: String?): Boolean = false
         })
     }
 
-    @SuppressLint("CheckResult")
-    private fun fetchMusicData(query: String) {
-        shimmerViewContainer.startShimmer()
-        shimmerViewContainer.visibility = View.VISIBLE
-        recyclerView.visibility = View.GONE
-
-        apiInterface.getData(query)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ musicResponse ->
-                context?.let {
-                    recyclerView.layoutManager = LinearLayoutManager(it)
-                    recyclerView.adapter = MusicAdapter(it, musicResponse.data)
-                    shimmerViewContainer.stopShimmer()
-                    shimmerViewContainer.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
+    /*
+    There basically should be a shimmering effect replacing the music item when its loading
+    But due to lack of time during the development phase, it hasn't been correctly implemented.
+    Refer to functions line 83 and 89 of this file
+     */
+    @SuppressLint("SetTextI18n")
+    private fun observeViewModel() {
+        viewModel.musicData.observe(viewLifecycleOwner) { musicData ->
+            if (musicData == null) {
+                binding.shimmerViewContainer.visibility = View.GONE
+                binding.tvEmptyMessage.visibility = View.VISIBLE
+                binding.recyclerView.visibility = View.GONE
+                binding.tvEmptyMessage.text = "Use the search bar to lookup for an artist discography!"
+            } else if (musicData.isNotEmpty()) {
+                stopShimmerEffect()
+                binding.recyclerView.visibility = View.VISIBLE
+                binding.tvEmptyMessage.visibility = View.GONE
+                binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                binding.recyclerView.adapter = MusicAdapter(requireContext(), musicData)
+                { dataItem ->
+                    viewModel.addToFavorites(dataItem) {
+                        activity?.runOnUiThread {
+                            Snackbar.make(binding.root,
+                                "${it.title} added to favorites", Snackbar.LENGTH_SHORT).show()
+                        }
+                    }
                 }
-            }, { error ->
-                error.printStackTrace()
-                shimmerViewContainer.stopShimmer()
-                shimmerViewContainer.visibility = View.GONE
-            })
+            } else {
+                stopShimmerEffect()
+                binding.recyclerView.visibility = View.GONE
+                binding.tvEmptyMessage.visibility = View.VISIBLE
+                binding.tvEmptyMessage.text = "No results found. Try a different search."
+            }
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        shimmerViewContainer.startShimmer()
+    private fun startShimmerEffect() {
+        binding.shimmerViewContainer.startShimmer()
+        binding.shimmerViewContainer.visibility = View.VISIBLE
+        binding.recyclerView.visibility = View.GONE
     }
 
-    override fun onPause() {
-        shimmerViewContainer.stopShimmer()
-        super.onPause()
+    private fun stopShimmerEffect() {
+        binding.shimmerViewContainer.stopShimmer()
+        binding.shimmerViewContainer.visibility = View.GONE
+        binding.recyclerView.visibility = View.VISIBLE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

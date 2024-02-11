@@ -1,5 +1,8 @@
 package com.example.kotlinmusic.data.entities
 
+/*
+Entity matching the object Data from a Json Response of the Deezer Rapid API
+ */
 data class Data(
     val album: Album,
     val artist: Artist,

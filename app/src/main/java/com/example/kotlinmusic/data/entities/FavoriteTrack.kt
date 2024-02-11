@@ -1,13 +1,15 @@
 package com.example.kotlinmusic.data.entities
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-
-@Entity(tableName = "favoriteTracks")
+/*
+Defining elements to store a "Favorite track" in RoomDB
+ */
+@Entity
 data class FavoriteTrack(
-    @PrimaryKey val id: Long,
-    val title: String,
-    val artist: String,
-    val coverUrl: String,
-    val previewUrl: String
+    @PrimaryKey val uid: Long,
+    @ColumnInfo(name = "title") val title: String?,
+    @ColumnInfo(name = "artist") val artist: String?,
+    @ColumnInfo(name = "url") val coverUrl: String?,
 )
