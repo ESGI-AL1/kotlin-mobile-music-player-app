@@ -10,6 +10,10 @@ Repository to call methods from the DAO to manipulate data in UI
 class FavoriteTrackRepository(private val favoriteTrackDAO: FavoriteTrackDAO) : IFavoriteTrackRepository {
     override fun getAllFavorites(): Flow<List<FavoriteTrack>> = favoriteTrackDAO.getAllFavorites()
 
+    override fun deleteFavoriteTrack(favoriteTrack: FavoriteTrack) {
+        favoriteTrackDAO.delete(favoriteTrack)
+    }
+
     override suspend fun insertFavoriteTrack(favoriteTrack: FavoriteTrack) {
         if (!favoriteTrackDAO.isAlreadyInFavorite(favoriteTrack.uid)) {
             favoriteTrackDAO.insertAll(favoriteTrack)

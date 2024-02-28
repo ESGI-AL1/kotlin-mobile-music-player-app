@@ -27,7 +27,7 @@ class MusicSearchViewModel(private val apiInterface: ApiInterface, private val f
                 val response = apiInterface.getData(query)
                 _musicData.postValue(response.data)
             } catch (e: Exception) {
-                Log.e("Artist Search", "Error: $e ")
+                Log.e("Artist Search", "Error: ", e)
                 _musicData.postValue(emptyList())
             }
         }
@@ -39,7 +39,8 @@ class MusicSearchViewModel(private val apiInterface: ApiInterface, private val f
                 uid = data.id,
                 title = data.title,
                 artist = data.artist.name,
-                coverUrl = data.album.cover
+                coverUrl = data.album.cover,
+                preview = data.preview
             )
             favoriteTrackRepository.insertFavoriteTrack(favoriteTrack)
             onAdded(data)

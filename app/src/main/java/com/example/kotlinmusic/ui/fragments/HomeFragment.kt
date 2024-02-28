@@ -1,14 +1,19 @@
 package com.example.kotlinmusic.ui.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kotlinmusic.data.entities.Data
+import com.example.kotlinmusic.data.entities.DetailData
 import com.example.kotlinmusic.databinding.HomeFragmentBinding
+import com.example.kotlinmusic.ui.activities.MusicDetailActivity
 import com.example.kotlinmusic.ui.adapters.MusicAdapter
 import com.example.kotlinmusic.ui.viewmodels.MusicSearchViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -36,12 +41,20 @@ class HomeFragment : Fragment() {
                 query?.let {
                     viewModel.fetchMusicData(it)
                     startShimmerEffect()
+                    //close
+                    closeKeyBoard();
                 }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean = false
         })
+    }
+
+    private fun closeKeyBoard() {
+        val inputMethodManager =
+           context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(binding.searchView.windowToken, 0)
     }
 
     /*
@@ -62,7 +75,7 @@ class HomeFragment : Fragment() {
                 binding.recyclerView.visibility = View.VISIBLE
                 binding.tvEmptyMessage.visibility = View.GONE
                 binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                binding.recyclerView.adapter = MusicAdapter(requireContext(), musicData)
+                binding.recyclerView.adapter = MusicAdapter(requireContext(), musicData,
                 { dataItem ->
                     viewModel.addToFavorites(dataItem) {
                         activity?.runOnUiThread {
@@ -70,7 +83,9 @@ class HomeFragment : Fragment() {
                                 "${it.title} added to favorites", Snackbar.LENGTH_SHORT).show()
                         }
                     }
-                }
+                }, {
+                    displayDetail(it)
+                    })
             } else {
                 stopShimmerEffect()
                 binding.recyclerView.visibility = View.GONE
@@ -78,6 +93,12 @@ class HomeFragment : Fragment() {
                 binding.tvEmptyMessage.text = "No results found. Try a different search."
             }
         }
+    }
+
+    private fun displayDetail(data: Data) {
+        val detailData = DetailData(cover = data.album.cover, preview = data.preview, title = data.title)
+        startActivity(MusicDetailActivity.newIntent(context, detailData))
+        closeKeyBoard()
     }
 
     private fun startShimmerEffect() {

@@ -21,6 +21,7 @@ interface FavoriteTrackDAO {
 
     @Delete
     fun delete(favoriteTrack: FavoriteTrack)
+
     @Query("SELECT EXISTS(SELECT 1 FROM favoritetrack WHERE uid = :uid LIMIT 1)")
     suspend fun isAlreadyInFavorite(uid: Long): Boolean
 }

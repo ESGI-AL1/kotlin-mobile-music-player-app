@@ -12,4 +12,6 @@ data class FavoriteTrack(
     @ColumnInfo(name = "title") val title: String?,
     @ColumnInfo(name = "artist") val artist: String?,
     @ColumnInfo(name = "url") val coverUrl: String?,
+    @ColumnInfo(name = "preview") val preview: String?
+
 )

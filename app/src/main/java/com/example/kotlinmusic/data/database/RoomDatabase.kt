@@ -8,7 +8,7 @@ import com.example.kotlinmusic.data.repository.FavoriteTrackRepository
 /*
 Creation of a Room Database to store favorite tracks in memory
  */
-@Database(entities = [FavoriteTrack::class], version = 5, exportSchema = false)
+@Database(entities = [FavoriteTrack::class], version = 6, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun favoriteTrackDao(): FavoriteTrackDAO
 }

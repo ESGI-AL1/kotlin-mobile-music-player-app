@@ -8,4 +8,5 @@ Defining available methods to handle database transactions for favorite tracks
 interface IFavoriteTrackRepository {
     suspend fun insertFavoriteTrack(favoriteTrack: FavoriteTrack)
     fun getAllFavorites(): Flow<List<FavoriteTrack>>
+    fun deleteFavoriteTrack(favoriteTrack: FavoriteTrack)
 }
