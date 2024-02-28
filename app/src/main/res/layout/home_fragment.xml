@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/white">
+    android:background="@color/white_two">
 
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"/>
 
@@ -18,6 +19,7 @@
         android:layout_height="wrap_content"
         android:text="@string/use_the_search_bar_to_lookup_for_an_artist_discography"
         android:gravity="center"
+        android:textColor="@color/black"
         android:visibility="gone"
         android:textSize="16sp"
         android:layout_marginTop="20dp"/>

@@ -5,9 +5,6 @@ plugins {
     id 'kotlin-parcelize'
 }
 
-
-
-
 android {
     namespace 'com.example.kotlinmusic'
     compileSdk 34
