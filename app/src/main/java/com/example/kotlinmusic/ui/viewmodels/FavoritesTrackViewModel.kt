@@ -10,7 +10,12 @@ import com.example.kotlinmusic.data.repository.IFavoriteTrackRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-/*
+/**
+ * Favorites view model
+ *
+ * @constructor Create empty Favorites view model
+ * @property favoriteTrackRepository
+ *//*
 FavoriteTrackViewModel is responsible for managing data of the favorite tracks from RoomBD
 */
 class FavoritesViewModel(
@@ -20,6 +25,13 @@ class FavoritesViewModel(
         .getAllFavorites()
         .asLiveData()
 
+    /**
+     * Delete favorite
+     *
+     * @param favoriteTrack
+     * @param onTrackDeleted
+     * @receiver
+     */
     fun deleteFavorite(favoriteTrack: FavoriteTrack, onTrackDeleted: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             favoriteTrackRepository.deleteFavoriteTrack(favoriteTrack)

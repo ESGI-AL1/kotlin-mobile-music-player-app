@@ -8,6 +8,27 @@ import kotlinx.parcelize.Parcelize
 Entity matching the object Data from a Json Response of the Deezer Rapid API
  */
 
+/**
+ * Data
+ *
+ * @constructor Create empty Data
+ * @property album
+ * @property artist
+ * @property duration
+ * @property explicitContentCover
+ * @property explicitContentLyrics
+ * @property explicitLyrics
+ * @property id
+ * @property link
+ * @property md5Image
+ * @property preview
+ * @property rank
+ * @property readable
+ * @property title
+ * @property titleShort
+ * @property titleVersion
+ * @property type
+ */
 data class Data(
     val album: Album,
     val artist: Artist,

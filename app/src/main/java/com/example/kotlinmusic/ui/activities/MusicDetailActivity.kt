@@ -11,6 +11,11 @@ import com.example.kotlinmusic.data.entities.DetailData
 import com.example.kotlinmusic.databinding.MusicDetailActivityBinding
 import com.squareup.picasso.Picasso
 
+/**
+ * Music detail activity
+ *
+ * @constructor Create empty Music detail activity
+ */
 class MusicDetailActivity: AppCompatActivity() {
     private var currentMediaPlayer: MediaPlayer? = null
 

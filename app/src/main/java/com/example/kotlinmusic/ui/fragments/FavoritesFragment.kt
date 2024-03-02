@@ -15,7 +15,11 @@ import com.example.kotlinmusic.ui.viewmodels.FavoritesViewModel
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-/*
+/**
+ * Favorites fragment
+ *
+ * @constructor Create empty Favorites fragment
+ *//*
 FavoritesFragment is responsible for displaying favorite tracks coming from the RoomDB
 */
 class FavoritesFragment : Fragment() {

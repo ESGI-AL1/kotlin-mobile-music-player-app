@@ -15,7 +15,15 @@ import com.example.kotlinmusic.data.entities.Data
 import com.example.kotlinmusic.R
 import com.squareup.picasso.Picasso
 
-/*
+/**
+ * Music adapter
+ *
+ * @constructor Create empty Music adapter
+ * @property context
+ * @property data
+ * @property onFavoriteClicked
+ * @property onItemClicked
+ *//*
 Music adapter is to access data items from the HomeView
 Here, we define behaviors that can happen in the view, such as playing music
 or adding a track to the favorites section of the application
@@ -31,6 +39,12 @@ class MusicAdapter(
     private var currentMediaPlayer: MediaPlayer? = null
     private var currentPlayingPosition: Int = -1
 
+    /**
+     * Music item view holder
+     *
+     * @param itemView
+     * @constructor
+     */
     class MusicItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var albumCover: ImageView = itemView.findViewById(R.id.albumCover)
         val musicTitle: TextView = itemView.findViewById(R.id.musicTitle)

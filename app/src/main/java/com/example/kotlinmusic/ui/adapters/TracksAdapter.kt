@@ -16,7 +16,15 @@ import com.example.kotlinmusic.data.entities.Data
 import com.example.kotlinmusic.data.entities.FavoriteTrack
 import com.squareup.picasso.Picasso
 
-/*
+/**
+ * Tracks adapter
+ *
+ * @constructor Create empty Tracks adapter
+ * @property context
+ * @property data
+ * @property addToFavorites
+ * @property onItemClicked
+ *//*
 Music adapter is to handle interactions with the FavoriteTrackViewModel
 */
 class TracksAdapter(
@@ -85,10 +93,21 @@ class TracksAdapter(
         }
     }
 
+    /**
+     * Track view holder
+     *
+     * @param itemView
+     * @constructor
+     */
     class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val title: TextView = itemView.findViewById(R.id.musicTitle)
         private val cover: ImageView = itemView.findViewById(R.id.albumCover)
 
+        /**
+         * Bind
+         *
+         * @param track
+         */
         fun bind(track: FavoriteTrack) {
             title.text = track.title
             Picasso.get().load(track.coverUrl).into(cover)

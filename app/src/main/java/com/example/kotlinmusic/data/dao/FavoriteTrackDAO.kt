@@ -8,20 +8,45 @@ import androidx.room.Query
 import com.example.kotlinmusic.data.entities.FavoriteTrack
 import kotlinx.coroutines.flow.Flow
 
-/*
+/**
+ * Favorite track d a o
+ *
+ * @constructor Create empty Favorite track d a o
+ *//*
 Interface to define the available methods to interact with RoomDB
  */
 @Dao
 interface FavoriteTrackDAO {
+    /**
+     * Get all favorites
+     *
+     * @return
+     */
     @Query("SELECT * FROM favoritetrack")
     fun getAllFavorites(): Flow<List<FavoriteTrack>>
 
+    /**
+     * Insert all
+     *
+     * @param favoriteTrack
+     */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(vararg favoriteTrack: FavoriteTrack)
 
+    /**
+     * Delete
+     *
+     * @param favoriteTrack
+     */
     @Delete
     fun delete(favoriteTrack: FavoriteTrack)
 
+    /**
+     * Is already in favorite
+     *
+     * @param uid
+     * @return
+     */
     @Query("SELECT EXISTS(SELECT 1 FROM favoritetrack WHERE uid = :uid LIMIT 1)")
     suspend fun isAlreadyInFavorite(uid: Long): Boolean
 }

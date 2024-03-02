@@ -3,7 +3,17 @@ package com.example.kotlinmusic.data.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-/*
+
+/**
+ * Favorite track
+ *
+ * @constructor Create empty Favorite track
+ * @property uid
+ * @property title
+ * @property artist
+ * @property coverUrl
+ * @property preview
+ *//*
 Defining elements to store a "Favorite track" in RoomDB
  */
 @Entity

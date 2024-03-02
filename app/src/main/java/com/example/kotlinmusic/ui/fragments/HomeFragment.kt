@@ -18,7 +18,12 @@ import com.example.kotlinmusic.ui.adapters.MusicAdapter
 import com.example.kotlinmusic.ui.viewmodels.MusicSearchViewModel
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
-/*
+
+/**
+ * Home fragment
+ *
+ * @constructor Create empty Home fragment
+ *//*
 HomeFragment is responsible for displaying music search results from the API calls.
 */
 class HomeFragment : Fragment() {
@@ -35,6 +40,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    /** Setup search view */
     private fun setupSearchView() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

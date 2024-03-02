@@ -11,7 +11,14 @@ import com.example.kotlinmusic.data.repository.IFavoriteTrackRepository
 import com.example.kotlinmusic.network.ApiInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-/*
+
+/**
+ * Music search view model
+ *
+ * @constructor Create empty Music search view model
+ * @property apiInterface
+ * @property favoriteTrackRepository
+ *//*
 MusicSearchViewModel is responsible for handling music search functionality
 It is managing data related to music search results from the API calls
 */
@@ -20,6 +27,11 @@ class MusicSearchViewModel(private val apiInterface: ApiInterface, private val f
     val musicData: LiveData<List<Data>?> = _musicData
 
 
+    /**
+     * Fetch music data
+     *
+     * @param query
+     */
     fun fetchMusicData(query: String) {
         _musicData.postValue(null)
         viewModelScope.launch(Dispatchers.IO) {
@@ -33,6 +45,13 @@ class MusicSearchViewModel(private val apiInterface: ApiInterface, private val f
         }
     }
 
+    /**
+     * Add to favorites
+     *
+     * @param data
+     * @param onAdded
+     * @receiver
+     */
     fun addToFavorites(data: Data, onAdded: (Data) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val favoriteTrack = FavoriteTrack(

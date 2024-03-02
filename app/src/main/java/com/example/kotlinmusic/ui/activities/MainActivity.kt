@@ -6,7 +6,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.kotlinmusic.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-/*
+
+/**
+ * Main activity
+ *
+ * @constructor Create empty Main activity
+ *//*
 MainActivity is initializing the application and managing the navigation.
 */
 class MainActivity : AppCompatActivity() {
